@@ -1,49 +1,52 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <string>
+#include <algorithm>
 using namespace std;
 
 class Solution {
 public:
     int longestValidParentheses(string s) {
+        //tc is O(2N)=O(N) where N is the lenth of string and sc is O(1)
 
-        int left = 0, right = 0;
-        int maxLen = 0;
+        int l= 0, r = 0;
+        int maxlength = 0;
 
         //left to right 
         for (char ch : s) {
 
             if (ch == '(')
-                left++;
+                l++;
             else
-                right++;
+                r++;
 
-            if (left == right) {
-                maxLen = max(maxLen, 2 * right);
+            if (l == r) {
+                maxlength = max(maxlength, 2 * r);
             }
-            else if (right > left) {
-                left = right = 0;
+            else if (r > l) {
+                l = r = 0;
             }
         }
 
         // Reset counters
-        left = right = 0;
+        l = r = 0;
 
-        // Right to Left Traversal
+        //second pass right to left traversal 
         for (int i = s.size() - 1; i >= 0; i--) {
 
             if (s[i] == '(')
-                left++;
+                l++;
             else
-                right++;
+                r++;
 
-            if (left == right) {
-                maxLen = max(maxLen, 2 * left);
+            if (l == r) {
+                maxlength = max(maxlength, 2 * l);
             }
-            else if (left > right) {
-                left = right = 0;
+            else if (l > r) {
+                l = r = 0;
             }
         }
 
-        return maxLen;
+        return maxlength;
     }
 };
 
